@@ -9,12 +9,9 @@ import (
 	"os"
 	"time"
 
-	"google.golang.org/appengine"
-
 	"github.com/joho/godotenv"
 	"github.com/line/line-bot-sdk-go/linebot"
 	"github.com/line/line-bot-sdk-go/linebot/httphandler"
-	"github.com/mjibson/goon"
 
 	"golang.org/x/net/context"
 
@@ -61,16 +58,6 @@ func init() {
 	http.Handle("/callback", botHandler)
 	http.HandleFunc("/task", handleTask)
 
-}
-
-func registLatestTime(c *gin.Context, t time.Time) {
-	g := goon.NewGoon(c.Request)
-	ctx := appengine.NewContext(c.Request)
-	post := DateSet{Id: "1", Date: t}
-	if _, err := g.Put(&post); err != nil {
-		serveError(ctx, c.Writer, err)
-		return
-	}
 }
 
 func serveError(ctx context.Context, w http.ResponseWriter, err error) {

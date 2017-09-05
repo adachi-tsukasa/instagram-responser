@@ -7,7 +7,6 @@ import (
 	"encoding/xml"
 	"html/template"
 
-	"google.golang.org/appengine"
 	"google.golang.org/appengine/urlfetch"
 )
 
@@ -48,7 +47,7 @@ type RssJsonItem struct {
 }
 
 func getLatestFeed(w http.ResponseWriter, r *http.Request, url string) RssJsonItem {
-	c := urlfetch.Client(appengine.NewContext(r))
+	c := urlfetch.Client(newContext(r))
 	res, err := c.Get(url)
 	if err != nil {
 		panic(err)
